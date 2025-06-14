@@ -12,7 +12,7 @@ fi
 echo "Enabling system time synchronization"
 timedatectl set-ntp true
 
-packages=(
+PACKAGES=(
   base
   base-devel
   dosfstools
