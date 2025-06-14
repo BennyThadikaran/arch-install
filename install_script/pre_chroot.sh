@@ -3,7 +3,7 @@
 # This script sets up base system, mirrorlist, and fstab
 set -e
 
-packages = (
+packages=(
   base
   base-devel
   dosfstools
