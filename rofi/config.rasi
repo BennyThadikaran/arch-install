@@ -1,0 +1,5 @@
+@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+
+configuration {
+  modes: "drun";
+}
