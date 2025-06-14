@@ -8,16 +8,25 @@ if ! mountpoint -q /mnt; then
   exit 1
 fi
 
-# 1. Enable NTP for system time synchronization
-echo "Enabling system time synchronization"
-timedatectl set-ntp true
+packages=(
+  base
+  base-devel
+  dosfstools
+  linux-lts
+  linux-zen
+  linux-lts-headers
+  linux-zen-headers
+  linux-firmware
+  grub
+  efibootmgr
+  amd-ucode
+)
 
 # 4. Set up the mirrorlist using reflector
 echo "Updating mirrorlist"
 reflector -c IN --age 12 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 
-# 2. Generate fstab with UUIDs
-echo "Generating fstab"
-genfstab -U /mnt >>/mnt/etc/fstab
+echo "Installing base system and essential packages"
+pacstrap /mnt "${PACKAGES[@]}" 2>&1 | tee -a pacstrap.log
 
-echo "Pre-chroot setup completed."
+echo "Base install complete. For output of pacstrap see pacstrap.log"
