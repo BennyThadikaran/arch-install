@@ -53,6 +53,8 @@ mkfs.ext4 "${DEVICE}2"
 # Encrypt the home partition
 echo "Encrypting /home partition..."
 cryptsetup luksFormat "${DEVICE}3"
+
+echo "Disk encryption complete. Reenter passphrase to decrypt and mount home partition"
 cryptsetup open "${DEVICE}3" crypt_home
 
 # Format encrypted /home partition

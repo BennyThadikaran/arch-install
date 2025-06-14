@@ -15,7 +15,6 @@ packages = (
   grub
   efibootmgr
   amd-ucode
-  neovim
 )
 
 if ! mountpoint -q /mnt; then
@@ -32,7 +31,7 @@ echo "Updating mirrorlist"
 reflector -c IN --age 12 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 
 # 5. Install essential packages
-echo "Installing base system"
+echo "Installing base system and essential packages"
 pacstrap /mnt "${PACKAGES[@]}"
 
 # 2. Generate fstab with UUIDs

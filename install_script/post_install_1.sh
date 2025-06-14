@@ -47,6 +47,7 @@ PACKAGES=(
   xorg-xinit
   xorg-xrandr
   # other essentials
+  neovim
   networkmanager
   firefox
   git
