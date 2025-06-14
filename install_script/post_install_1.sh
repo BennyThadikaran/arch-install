@@ -63,8 +63,8 @@ PACKAGES=(
   fcron
 )
 
-if ! pacman -S --noconfirm --needed "${PACKAGES[@]}" 2>>/var/log/installation_errors.log; then
-  echo "Error: Installation failed. Check the log for details."
+if ! pacman -S --noconfirm --needed "${PACKAGES[@]}" 2>>pacman_errors.log; then
+  echo "Error: Installation failed. Check the pacman_errors.log for details."
   exit 1
 else
   echo "All packages installed successfully."
