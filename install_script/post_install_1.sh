@@ -16,7 +16,7 @@ PACKAGES=(
   alacritty # terminal
   nitrogen  # wallpaper
   # Qtile bar dependencies
-  wireless-tools
+  wireless_tools
   when
   brightnessctl
   pacman-contrib
@@ -58,7 +58,7 @@ PACKAGES=(
   ufw
   xarchiver
   xclip
-  neofetch
+  fastfetch
   ttf-ibm-plex
   fcron
 )

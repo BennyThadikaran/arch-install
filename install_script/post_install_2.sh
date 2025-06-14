@@ -11,13 +11,6 @@ fi
 # Set the device variable to the provided argument
 USER="$1"
 
-echo "enabling firewall"
-ufw enable
-
-ufw logging off
-
-systemctl enable ufw
-
 echo "Creating user ${USER}"
 useradd -m -G wheel -s /bin/bash $USER
 
