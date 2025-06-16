@@ -4,9 +4,15 @@ This is only for my personal use and currently being tested in a virtual machine
 
 Status: VM tested and works. Yet to test on live hardware
 
+Example using curl to download the script inside arch install medium:
+
+`curl -O https://raw.githubusercontent.com/BennyThadikaran/arch-install/refs/heads/main/install_script/partition.sh`
+
+`chmod +x partition.sh`
+
 ## Order of Operations
 
-1. Run `partition.sh`
+1. Run `partition.sh /dev/sda`
 
 2. Install packages
 
@@ -19,11 +25,9 @@ genfstab -U /mnt >>/mnt/etc/fstab
 arch-chroot /mnt
 ```
 
-5. Run `post_chroot.sh`
+5. Run `post_chroot.sh <username>`
 
-6. Run `post_install.sh`
-
-7. Exit the chroot and unmount
+6. Exit the chroot and unmount
 
 ```
 exit
