@@ -1,0 +1,11 @@
+base
+base-devel
+dosfstools
+linux-lts
+linux-zen
+linux-lts-headers
+linux-zen-headers
+linux-firmware
+grub
+efibootmgr
+amd-ucode
