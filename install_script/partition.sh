@@ -47,7 +47,7 @@ parted $DEVICE print
 # Format partitions
 mkfs.fat -F32 "${DEVICE}1"
 mkfs.ext4 -F "${DEVICE}2"
-mkfs.ext4 -F "${DEVICE}3"
+mkfs.ext4 -O encrypt -F "${DEVICE}3"
 
 # Mount the partitions
 echo "Mounting partitions..."
