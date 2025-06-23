@@ -2,7 +2,7 @@ This is a collection of scripts for Arch Linux setup.
 
 This is only for my personal use and currently being tested in a virtual machine.
 
-Status: VM tested and works. Yet to test on live hardware
+**Status:** Tested and working on VM and live hardware
 
 Example using curl to download the script inside arch install medium:
 
@@ -39,14 +39,14 @@ reboot now
 
 ### Setup user folder encryption
 
-1. Login as root and install fscrypt
+1. Login as root
 
 2. Once reboot is complete, qtile should run with default configuration and terminal can be accessed with `SUPER + Enter`
 
 3. Run the below commands to setup encryption of /home/username. (Ensure same password as user login)
 
 ```
-fscrypt setup /
+fscrypt setup --force
 fscrypt setup /home
 mkdir /home/<user>.bak
 fscrypt encrypt /home/<user>.bak
@@ -71,10 +71,18 @@ session optional pam_fscrypt.so
 ```
 doas ufw enable
 doas ufw logging off
+doas systemctl enable ufw.service
 ```
 
-2. Save Qtile and Rofi config from github repo into `~/.config` and make `autostart.sh` executable.
+2. Save Qtile, Rofi, and dunst config from github repo into `~/.config` and make `~/.config/qtile/autostart.sh` executable.
    - Edit xrandr settings in `autostart.sh` to set the correct screensize.
    - Run nitrogen to set the wallpaper.
    - Install [MesloLG Nerd font](https://www.nerdfonts.com/font-downloads) - Required for Qtile bar
    - Press `SUPER + SHIFT + r` to restart Qtile with new config
+
+3. Optional optimisations and enhancements
+
+  - Add `noatime,commit=60` to `/etc/fstab`. See [Disabling_access_time_update](https://wiki.archlinux.org/title/Ext4#Disabling_access_time_update) and [Increasing commit interval](https://wiki.archlinux.org/title/Ext4#Increasing_commit_interval)
+  - Edit `/etc/pacman.conf`, increase `ParallelDownloads=8` (Set to CPU cores count) and uncomment `color` for colored output.
+
+  - Edit `/etc/default/grub` and set `GRUB_TIMEOUT=0`. Run `grub-mkconfig -o /boot/grub/grub.cfg` to update changes.
