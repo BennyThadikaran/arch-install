@@ -1,5 +1,6 @@
-@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+@theme "/home/benny/.config/rofi/murz.rasi"
 
 configuration {
   modes: "drun";
+  font: "MesloLGS Nerd Font Bold 12";
 }

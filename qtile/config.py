@@ -6,7 +6,7 @@ import subprocess
 
 mod = "mod4"
 terminal = "alacritty"
-browser = "firefox"
+browser = "firefox-esr"
 
 
 # Keybindings
@@ -18,24 +18,53 @@ keys = [
         lazy.spawn("rofi -show drun -show-icons"),
         desc="Run Launcher",
     ),
-    Key(["mod4", "shift"], "l", lazy.spawn("i3lock -c 000000"), desc="Lock screen"),
-    # Increase brightness
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
-    # Decrease brightness
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
-    Key([mod], "f", lazy.spawn(browser), desc="Web browser"),
-    Key([mod], "b", lazy.hide_show_bar(), desc="Toggle bar"),
+    Key([mod, "shift"], "q", lazy.shutdown()),
+    Key([mod, "shift"], "p", lazy.spawn("/home/benny/scripts/powermenu.sh")),
+    Key(
+        [mod, "control"],
+        "l",
+        lazy.spawn("i3lock -i /home/benny/Pictures/ayu-dark.png"),
+        desc="Lock screen",
+    ),
+    # brightness
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +10%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 10%-")),
+    # Volume
+    Key(
+        [],
+        "XF86AudioLowerVolume",
+        lazy.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-"),
+    ),
+    Key(
+        [],
+        "XF86AudioRaiseVolume",
+        lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
+    ),
+    Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+    # Mute Microphone
+    Key(
+        [],
+        "XF86AudioMicMute",
+        lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+    ),
+    # Application shortcut
+    Key([mod], "KP_Add", lazy.spawn("galculator"), desc="Launch galculator"),
+    Key([mod], "f", lazy.spawn(browser), desc="Firefox browser"),
+    Key([mod], "c", lazy.spawn("librewolf"), desc="Librewolf browser"),
+    Key([mod], "p", lazy.spawn("/home/benny/scripts/pwd.sh"), desc="Password manager"),
+    Key([mod], "e", lazy.spawn("pcmanfm"), desc="File Manager"),
+    Key([mod, "shift"], "w", lazy.spawn("nitrogen"), desc="Set Wallpaper"),
+    # qtile controls
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle layout"),
+    Key([mod], "b", lazy.hide_show_bar(), desc="Toggle bar"),
     Key([mod], "q", lazy.window.kill(), desc="Close Window"),
-    Key([mod], "e", lazy.spawn("pcmanfm"), desc="File Manager"),
-    Key([mod, "shift"], "w", lazy.spawn("nitrogen"), desc="Set Wallpaper"),
     # Switch between windows
     # Some layouts like 'monadtall' only need to use j/k to move
     # through the stack, but other layouts like 'columns' will
     # require all four directions h/j/k/l to move around.
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    # Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -91,9 +120,7 @@ layouts = [
 
 # Fonts
 widget_defaults = dict(
-    font="MesloLGS Nerd Font",
-    fontsize=14,
-    padding=4,
+    font="MesloLGS Nerd Font Bold", fontsize=14, padding=4, fontweight="bold"
 )
 extension_defaults = widget_defaults.copy()
 
@@ -105,10 +132,10 @@ def init_widgets_list():
         widget.GroupBox(
             highlight_method="line",
             active="#f8f8f2",
-            inactive="#6272a4",
+            inactive="#AFB5D0",
             highlight_color=["#44475a", "#282a36"],
             this_current_screen_border="#ff79c6",
-            rounded=True,
+            rounded=False,
         ),
         widget.Spacer(),
         widget.Image(filename="~/.config/qtile/icons/microchip.png"),
@@ -117,7 +144,7 @@ def init_widgets_list():
             width=50,
             padding=0,
             foreground="#2ECC71",
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
+            mouse_callbacks={"Button1": lambda: qtile.spawn(terminal + " -e htop")},
         ),
         widget.Image(filename="~/.config/qtile/icons/memory.png"),
         widget.Memory(
@@ -125,7 +152,7 @@ def init_widgets_list():
             width=50,
             padding=0,
             foreground="#E74C3C",
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
+            mouse_callbacks={"Button1": lambda: qtile.spawn(terminal + " -e htop")},
         ),
         widget.Image(filename="~/.config/qtile/icons/hard-drive.png"),
         widget.Memory(
@@ -134,58 +161,61 @@ def init_widgets_list():
             padding=0,
             foreground="#F1C40F",
         ),
-        widget.Image(filename="~/.config/qtile/icons/wifi.png"),
-        widget.Net(
-            format="{down:>5} ↓ {up:>5} ↑",
-            width=140,
-            padding=0,
-            foreground="#ECF0F1",
+        widget.Wlan(
+            interface="wlp1s0",
+            format="  {essid:.5} ",
+            disconnected_message="Disconnected",
+            update_interval=10,
         ),
-        # 🔈 Volume Widget
-        widget.Image(filename="~/.config/qtile/icons/volume.png"),
         widget.Volume(
-            fmt="{} ",
+            fmt="  {} ",
             foreground="#ECF0F1",
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("pavucontrol")},
+            mouse_callbacks={"Button1": lambda: qtile.spawn("pavucontrol")},
             volume_down_command="amixer -D pulse sset Master 5%-",
             volume_up_command="amixer -D pulse sset Master 5%+",
         ),
         widget.CheckUpdates(
-            distro="Arch",
-            display_format="🛡️ {updates}",
-            no_update_string="No Updates",
+            distro="Arch_paru",
+            display_format=" {updates}",
+            no_update_string=" ",
             colour_have_updates="#E74C3C",
-            colour_no_updates="#2ECC71",
-            update_interval=14400,
+            colour_no_updates="#ECF0F1",
+            update_interval=3600,
             mouse_callbacks={
-                "Button1": lambda: qtile.cmd_spawn(terminal + " -e sudo pacman -Syu")
+                "Button1": lambda: (
+                    qtile.spawn(
+                        terminal
+                        + " -e sh -c 'doas paru -Syu; echo Press enter to exit...; read'"
+                    ),
+                    qtile.Widgets["CheckUpdates"].force_update(),
+                )
             },
         ),
-        # 📦 WidgetBox for Bluetooth and Backlight
+        # WidgetBox for Bluetooth and Backlight
         widget.WidgetBox(
             widgets=[
                 widget.Bluetooth(
-                    foreground="#1ABC9C",
-                    mouse_callbacks={
-                        "Button1": lambda: qtile.cmd_spawn("blueman-manager")
-                    },
+                    foreground="#ECF0F1",
+                    default_show_battery=True,
+                    default_text="{connected_devices}",
+                    device_battery_format=" {battery}%",
+                    mouse_callbacks={"Button1": lambda: qtile.spawn("blueman-manager")},
                 ),
                 widget.Backlight(
-                    backlight_name="intel_backlight",  # Adjust based on your hardware
-                    format="☀ {percent:2.0%}",
+                    backlight_name="amdgpu_bl1",  # Adjust based on your hardware
+                    format="󰃟 {percent:2.0%}",
                     foreground="#F1C40F",
                 ),
             ],
-            text_closed="",  # Icon when collapsed
-            text_open="",  # Icon when expanded
-            foreground="#BDC3C7",
+            text_closed="󰧚 ",  # Icon when collapsed
+            text_open="󰧖 ",  # Icon when expanded
+            foreground="#ECF0F1",
         ),
         widget.Clock(
-            format=" %a, %b %d, %Y - %H:%M:%S ",
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("yad --calendar")},
-            foreground="#1ABC9C",
+            format=" %a, %d %b, %Y %H:%M:%S ",
+            mouse_callbacks={"Button1": lambda: qtile.spawn("yad --calendar")},
+            foreground="#ECF0F1",
         ),
-        widget.Systray(),
     ]
 
 
@@ -211,6 +241,7 @@ floating_layout = layout.Floating(
     float_rules=[
         *layout.Floating.default_float_rules,
         Match(wm_class="yad"),  # for calendar popup
+        Match(wm_class="galculator"),  # for calendar popup
     ]
 )
 
