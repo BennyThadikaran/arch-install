@@ -41,11 +41,50 @@ mainbox {
 }
 
 inputbar {
-  children: [entry];
+  children: [ "prompt","textbox-prompt-colon","entry","overlay","num-filtered-rows","textbox-num-sep","num-rows","case-indicator" ];
+}
+
+overlay {
+    padding: 10px 0;
+}
+
+case-indicator {
+    padding: 10px 0;
+    spacing: 0;
+}
+
+prompt {
+  spacing: 0;
+  padding: 10px 0;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    padding: 10px 0;
+    str: ": ";
+}
+
+num-filtered-rows {
+    padding: 10px 0;
+    expand: false;
+}
+
+num-rows {
+    padding: 10px 0;
+    expand: false;
+}
+
+textbox-num-sep {
+    padding: 10px 0;
+    expand: false;
+    str: "/";
 }
 
 entry {
-  padding: 10px;
+  cursor: text;
+  padding: 10px 0;
+  spacing: 0;
+  placeholder: "Type to filter";
 }
 
 listview {
@@ -57,10 +96,6 @@ scrollbar {
   background-color: @bg-alt;
   handle-color: @fg;
   margin: 0 0 0 6px;
-}
-
-element {
-  children: [element-text];
 }
 
 element-text {

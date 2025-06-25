@@ -20,9 +20,11 @@ keys = [
     ),
     Key([mod, "shift"], "q", lazy.shutdown()),
     Key([mod, "shift"], "p", lazy.spawn("/home/benny/scripts/powermenu.sh")),
+    Key(["mod1"], "Tab", lazy.spawn("rofi -show window")),
+    Key([], "Print", lazy.spawn("/home/benny/scripts/screenshot.sh")),
     Key(
-        [mod, "control"],
-        "l",
+        ["control", "mod1"],
+        "KP_Delete",
         lazy.spawn("i3lock -i /home/benny/Pictures/ayu-dark.png"),
         desc="Lock screen",
     ),
@@ -145,6 +147,7 @@ def init_widgets_list():
             padding=0,
             foreground="#2ECC71",
             mouse_callbacks={"Button1": lambda: qtile.spawn(terminal + " -e htop")},
+            update_interval=2.0,
         ),
         widget.Image(filename="~/.config/qtile/icons/memory.png"),
         widget.Memory(
@@ -153,6 +156,7 @@ def init_widgets_list():
             padding=0,
             foreground="#E74C3C",
             mouse_callbacks={"Button1": lambda: qtile.spawn(terminal + " -e htop")},
+            update_interval=2.0,
         ),
         widget.Image(filename="~/.config/qtile/icons/hard-drive.png"),
         widget.Memory(
@@ -160,7 +164,9 @@ def init_widgets_list():
             width=50,
             padding=0,
             foreground="#F1C40F",
+            update_interval=2.0,
         ),
+        widget.Spacer(),
         widget.Wlan(
             interface="wlp1s0",
             format="  {essid:.5} ",
@@ -174,43 +180,13 @@ def init_widgets_list():
             volume_down_command="amixer -D pulse sset Master 5%-",
             volume_up_command="amixer -D pulse sset Master 5%+",
         ),
-        widget.CheckUpdates(
-            distro="Arch_paru",
-            display_format=" {updates}",
-            no_update_string=" ",
-            colour_have_updates="#E74C3C",
-            colour_no_updates="#ECF0F1",
-            update_interval=3600,
-            mouse_callbacks={
-                "Button1": lambda: (
-                    qtile.spawn(
-                        terminal
-                        + " -e sh -c 'doas paru -Syu; echo Press enter to exit...; read'"
-                    ),
-                    qtile.Widgets["CheckUpdates"].force_update(),
-                )
-            },
-        ),
-        # WidgetBox for Bluetooth and Backlight
-        widget.WidgetBox(
-            widgets=[
-                widget.Bluetooth(
-                    foreground="#ECF0F1",
-                    default_show_battery=True,
-                    default_text="{connected_devices}",
-                    device_battery_format=" {battery}%",
-                    mouse_callbacks={"Button1": lambda: qtile.spawn("blueman-manager")},
-                ),
-                widget.Backlight(
-                    backlight_name="amdgpu_bl1",  # Adjust based on your hardware
-                    format="󰃟 {percent:2.0%}",
-                    foreground="#F1C40F",
-                ),
-            ],
-            text_closed="󰧚 ",  # Icon when collapsed
-            text_open="󰧖 ",  # Icon when expanded
+        widget.Backlight(
+            backlight_name="amdgpu_bl1",  # Adjust based on your hardware
+            format="󰃟 {percent:2.0%}",
             foreground="#ECF0F1",
         ),
+        widget.Systray(),
+        widget.Spacer(),
         widget.Clock(
             format=" %a, %d %b, %Y %H:%M:%S ",
             mouse_callbacks={"Button1": lambda: qtile.spawn("yad --calendar")},
@@ -221,9 +197,11 @@ def init_widgets_list():
 
 screens = [
     Screen(
+        wallpaper="/home/benny/Pictures/Island-Noon.jpg",
+        wallpaper_mode="fill",
         top=bar.Bar(
             widgets=init_widgets_list(), size=24, background="#282a36", opacity=0.95
-        )
+        ),
     ),
 ]
 

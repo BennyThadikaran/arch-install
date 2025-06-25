@@ -1,6 +1,6 @@
 @theme "/home/benny/.config/rofi/murz.rasi"
 
 configuration {
-  modes: "drun";
+  modes: ["drun", "window"];
   font: "MesloLGS Nerd Font Bold 12";
 }
