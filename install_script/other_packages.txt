@@ -65,3 +65,4 @@ pass
 gnupg
 numlockx
 galculator
+scrot
