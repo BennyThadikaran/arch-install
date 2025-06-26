@@ -2,13 +2,21 @@
 
 ![Qtile Desktop with rofi](images/desktop-rofi.png)
 
-**Status:** Tested and working on VM and live hardware
+This is my current Arch Linux setup with install scripts and some dotfiles
+
+It is only for my personal use. I've been running this as my daily driver and works well without any issues.
+
+The install scripts have hard coded values for hostname and disk configuration. If you decide to use the scripts, make sure to go through and make changes. (Always test-run the scripts in a VM before running on live hardware)
 
 Example using curl to download the script inside arch install medium:
 
 `curl -O https://raw.githubusercontent.com/BennyThadikaran/arch-install/refs/heads/main/install_script/partition.sh`
 
 `chmod +x partition.sh`
+
+Assume you're using a bootable pendrive with enough spare space, you can partition the excess space as FAT32 or ext4. This allows storing the install scripts and other config files for use during installation.
+
+**TODO:** Update instructions on partitioning pendrive
 
 ## Order of Operations
 
