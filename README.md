@@ -2,9 +2,11 @@
 
 ![Qtile Desktop with rofi](images/desktop-rofi.png)
 
-This is my current Arch Linux setup with install scripts and some dotfiles
+This is my current Arch Linux setup with install scripts and some dotfiles.
 
 It is only for my personal use. I've been running this as my daily driver and works well without any issues.
+
+My setup uses Qtile (Window manager), Ly (desktop manager or login manager), xorg (display server), rofi (application runner), i3lock (screen lock)
 
 The install scripts have hard coded values for hostname and disk configuration. If you decide to use the scripts, make sure to go through and make changes. (Always test-run the scripts in a VM before running on live hardware)
 
@@ -14,7 +16,7 @@ Example using curl to download the script inside arch install medium:
 
 `chmod +x partition.sh`
 
-Assume you're using a bootable pendrive with enough spare space, you can partition the excess space as FAT32 or ext4. This allows storing the install scripts and other config files for use during installation.
+Assume you're using a bootable pendrive with enough disk space, you can partition the excess space as FAT32 or ext4. This allows storing the install scripts and other config files for use during installation.
 
 **TODO:** Update instructions on partitioning pendrive
 
@@ -25,6 +27,9 @@ Assume you're using a bootable pendrive with enough spare space, you can partiti
 2. Install packages
 
 `pacstrap /mnt $(< base_packages.txt) $(< other_packages.txt)`
+
+- `base_packages` is the minimal required to install arch. Edit the specific kernel you want installed.
+- `other_packages` contain my personal choice of packages. Some are required for qtile widgets. 
 
 3. Generate file system table and chroot into /mnt
 
@@ -72,6 +77,8 @@ session optional pam_fscrypt.so
 
 5. Reboot and login as `user`. Run `fscrypt status /home/user` to check status
 
+Finally its a good idea to run `pacman -S --needed $(< other_packages.txt)` to install any packages that failed to install earlier.
+
 ## Final steps
 
 1. Enable firewall
@@ -82,9 +89,9 @@ doas ufw logging off
 doas systemctl enable ufw.service
 ```
 
-2. Save Qtile, Rofi, and dunst config from github repo into `~/.config` and make `~/.config/qtile/autostart.sh` executable.
+2. Move contents of .config folder to `~/.config` and scripts folder to your HOME folder.
+   - Make sure `~/.config/qtile/autostart.sh` and bash scripts in `~/scripts/` are made executable.
    - Edit xrandr settings in `autostart.sh` to set the correct screensize.
-   - Run nitrogen to set the wallpaper.
    - Install [MesloLG Nerd font](https://www.nerdfonts.com/font-downloads) - Required for Qtile bar
    - Press `SUPER + SHIFT + r` to restart Qtile with new config
 
@@ -94,3 +101,13 @@ doas systemctl enable ufw.service
   - Edit `/etc/pacman.conf`, increase `ParallelDownloads=8` (Set to CPU cores count) and uncomment `color` for colored output.
 
   - Edit `/etc/default/grub` and set `GRUB_TIMEOUT=0`. Run `grub-mkconfig -o /boot/grub/grub.cfg` to update changes.
+
+## Wallpapers and icon themes
+
+- [LagrangianLad/arch-minimal-wallpapers](https://github.com/LagrangianLad/arch-minimal-wallpapers)
+- [D3Ext/aesthetic-wallpapers](https://github.com/D3Ext/aesthetic-wallpapers)
+- [Fausto-Korpsvart/Gruvbox-GTK-Theme](https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme)
+
+## Rofi theme
+
+I use the Murz theme (with some modifications) [Murzchnvok/rofi-collection](https://github.com/Murzchnvok/rofi-collection)
