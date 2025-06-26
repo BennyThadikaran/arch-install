@@ -1,6 +1,6 @@
-This is a collection of scripts for Arch Linux setup.
+![Qtile Desktop](images/qtile-desktop.png)
 
-This is only for my personal use and currently being tested in a virtual machine.
+![Qtile Desktop with rofi](images/desktop-rofi.png)
 
 **Status:** Tested and working on VM and live hardware
 
