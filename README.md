@@ -63,7 +63,7 @@ rm -rf /home/<user>
 mv /home/<user>.bak /home/<user>
 ```
 
-4. Add the below lines to `/etc/pam.d/ly` and `/etc/pam.d/system-login` to allow decryption at login
+4. Add the below lines `/etc/pam.d/system-login` to allow decryption at login.
 
 ```bash
 auth optional pam_fscrypt.so
