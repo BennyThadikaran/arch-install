@@ -37,7 +37,7 @@ window {
 }
 
 mainbox {
-  children: [inputbar, listview];
+  children: [inputbar, message, listview];
 }
 
 inputbar {
