@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 # List available Wi-Fi networks
 available_networks=$(nmcli -t -f ssid device wifi list)

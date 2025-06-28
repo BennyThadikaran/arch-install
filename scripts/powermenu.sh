@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 # Define options
 options=" Lock Screen\n Shutdown\n󰜉 Restart\n󰍃 Logout"
