@@ -16,9 +16,27 @@ Example using curl to download the script inside arch install medium:
 
 `chmod +x partition.sh`
 
-Assume you're using a bootable pendrive with enough disk space, you can partition the excess space as FAT32 or ext4. This allows storing the install scripts and other config files for use during installation.
+## Store install scripts on bootable USB
+A more convenient option is to load the install scripts on your bootable USB. This requires partitioning the remaining space on the USB as exFAT (Windows & Linux compatible) or ext4 (Linux).
 
-**TODO:** Update instructions on partitioning pendrive
+```bash
+fdisk -t mbr --wipe never /dev/disk/by-id/<usb-My_flash_drive>
+
+# replace the appropriate device for sdX3
+mkfs.ext4 /dev/sdX3
+
+# or
+mkfs.exfat /dev/sdX3
+```
+
+see [ArchWiki - Add an additional data partition to the drive](https://wiki.archlinux.org/title/USB_flash_installation_medium#Add_an_additional_data_partition_to_the_drive) for full details.
+
+You will need to manually mount the partition during arch install
+
+```
+mkdir /mnt/data
+mount /dev/sdX3 /mnt/data
+```
 
 ## Order of Operations
 
