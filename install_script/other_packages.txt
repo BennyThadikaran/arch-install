@@ -3,7 +3,6 @@ qtile
 ly
 i3lock
 alacritty
-nitrogen
 wireless_tools
 brightnessctl
 pacman-contrib
