@@ -71,7 +71,12 @@ keys = [
         lazy.spawn("/home/benny/scripts/mpc_toggle.sh prev"),
     ),
     # Application shortcut
-    Key([mod], "KP_Add", lazy.spawn("galculator"), desc="Launch galculator"),
+    Key(
+        [mod],
+        "KP_Add",
+        lazy.spawn("mate-calc"),
+        desc="Launch calculator",
+    ),
     Key([mod], "f", lazy.spawn(browser), desc="Firefox browser"),
     Key([mod], "c", lazy.spawn("librewolf"), desc="Librewolf browser"),
     Key([mod], "p", lazy.spawn("/home/benny/scripts/pwd.sh"), desc="Password manager"),
