@@ -8,6 +8,19 @@ mod = "mod4"
 terminal = "alacritty"
 browser = "firefox-esr"
 
+mouse = []
+auto_fullscreen = True
+focus_on_window_activation = "smart"
+reconfigure_screens = True
+wmname = "Qtile"
+
+
+@hook.subscribe.startup_once
+def autostart():
+    autostart_script = os.path.expanduser("~/.config/qtile/autostart.sh")
+    if os.path.isfile(autostart_script):
+        subprocess.run([autostart_script])
+
 
 # Keybindings
 keys = [
@@ -247,15 +260,6 @@ screens = [
     ),
 ]
 
-mouse = []
-
-
-@hook.subscribe.startup_once
-def autostart():
-    autostart_script = os.path.expanduser("~/.config/qtile/autostart.sh")
-    if os.path.isfile(autostart_script):
-        subprocess.run([autostart_script])
-
 
 floating_layout = layout.Floating(
     float_rules=[
@@ -264,8 +268,3 @@ floating_layout = layout.Floating(
         Match(wm_class="mate-calc"),  # for calendar popup
     ]
 )
-
-auto_fullscreen = True
-focus_on_window_activation = "smart"
-reconfigure_screens = True
-wmname = "Qtile"
