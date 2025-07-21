@@ -49,6 +49,27 @@ keys = [
         "XF86AudioMicMute",
         lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
     ),
+    # Toggle music player on or off
+    Key(
+        [],
+        "XF86AudioPlay",
+        lazy.spawn("/home/benny/scripts/mpc_toggle.sh toggle"),
+    ),
+    Key(
+        [],
+        "XF86AudioPlay",
+        lazy.spawn("/home/benny/scripts/mpc_toggle.sh toggle"),
+    ),
+    Key(
+        [],
+        "XF86AudioNext",
+        lazy.spawn("/home/benny/scripts/mpc_toggle.sh next"),
+    ),
+    Key(
+        [],
+        "XF86AudioPrev",
+        lazy.spawn("/home/benny/scripts/mpc_toggle.sh prev"),
+    ),
     # Application shortcut
     Key([mod], "KP_Add", lazy.spawn("galculator"), desc="Launch galculator"),
     Key([mod], "f", lazy.spawn(browser), desc="Firefox browser"),
