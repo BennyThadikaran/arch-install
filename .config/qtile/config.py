@@ -261,7 +261,7 @@ floating_layout = layout.Floating(
     float_rules=[
         *layout.Floating.default_float_rules,
         Match(wm_class="yad"),  # for calendar popup
-        Match(wm_class="galculator"),  # for calendar popup
+        Match(wm_class="mate-calc"),  # for calendar popup
     ]
 )
 
