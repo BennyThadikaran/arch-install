@@ -28,7 +28,6 @@ libnotify
 zathura
 zathura-pdf-mupdf
 xorg-server
-xorg-xinit
 xorg-xrandr
 neovim
 networkmanager
