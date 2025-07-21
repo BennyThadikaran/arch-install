@@ -1,0 +1,5 @@
+firefox-esr-bin
+flacon
+librewolf-bin
+pam-gnupg
+peazip-gtk2-bin
