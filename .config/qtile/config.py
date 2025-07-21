@@ -135,14 +135,26 @@ keys = [
 ]
 
 # Groups (Workspaces)
-groups = [Group(i) for i in "123456789"]
-for i in groups:
+groups = []
+
+for i in "123456789":
+    if i == "3":
+        # Start keepassxc and transmission-gtk in group 3
+        group = Group(
+            name=i,
+            matches=[Match(wm_class="keepassxc"), Match(wm_class="transmission-gtk")],
+        )
+    else:
+        group = Group(name=i)
+
     keys.extend(
         [
-            Key([mod], i.name, lazy.group[i.name].toscreen()),
-            Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+            Key([mod], group.name, lazy.group[group.name].toscreen()),
+            Key([mod, "shift"], group.name, lazy.window.togroup(group.name)),
         ]
     )
+
+    groups.append(group)
 
 # Layouts
 layouts = [
