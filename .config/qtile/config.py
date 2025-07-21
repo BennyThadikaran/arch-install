@@ -81,7 +81,6 @@ keys = [
     Key([mod], "c", lazy.spawn("librewolf"), desc="Librewolf browser"),
     Key([mod], "p", lazy.spawn("/home/benny/scripts/pwd.sh"), desc="Password manager"),
     Key([mod], "e", lazy.spawn("pcmanfm"), desc="File Manager"),
-    Key([mod, "shift"], "w", lazy.spawn("nitrogen"), desc="Set Wallpaper"),
     # qtile controls
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -128,6 +127,11 @@ keys = [
         lazy.layout.section_up().when(layout=["treetab"]),
         desc="Move window downup/move up a section in treetab",
     ),
+    Key([mod], "bracketright", lazy.layout.grow()),
+    Key([mod], "bracketleft", lazy.layout.shrink()),
+    Key([mod], "n", lazy.layout.reset()),
+    Key([mod], "m", lazy.layout.maximize()),
+    Key([mod, "shift"], "space", lazy.layout.flip()),
 ]
 
 # Groups (Workspaces)
