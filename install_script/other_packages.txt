@@ -62,5 +62,5 @@ nano
 pass
 gnupg
 numlockx
-galculator
+mate-calc
 scrot
