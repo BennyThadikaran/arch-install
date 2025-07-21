@@ -158,7 +158,7 @@ for i in "123456789":
 
 # Layouts
 layouts = [
-    layout.MonadTall(border_focus="#1ABC9C", border_width=2, margin=8),
+    layout.MonadTall(border_focus="#1ABC9C", border_width=3, margin=0),
     layout.Max(),
 ]
 
