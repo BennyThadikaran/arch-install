@@ -1,5 +1,5 @@
 from libqtile import bar, layout, widget, hook, qtile
-from libqtile.config import Screen, Key, Group, Match
+from libqtile.config import Screen, Key, Group, Match, Drag
 from libqtile.lazy import lazy
 import os
 import subprocess
@@ -8,7 +8,14 @@ mod = "mod4"
 terminal = "alacritty"
 browser = "firefox-esr"
 
-mouse = []
+mouse = [
+    Drag(
+        [mod],
+        "Button1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+]
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
