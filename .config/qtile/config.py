@@ -192,7 +192,7 @@ extension_defaults = widget_defaults.copy()
 # Bar and Widgets
 def init_widgets_list():
     return [
-        widget.CurrentLayoutIcon(scale=0.7),
+        widget.CurrentLayout(mode="icon"),
         widget.GroupBox(
             highlight_method="line",
             active="#f8f8f2",
