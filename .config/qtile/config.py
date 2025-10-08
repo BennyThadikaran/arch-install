@@ -77,11 +77,6 @@ keys = [
     ),
     Key(
         [],
-        "XF86AudioPlay",
-        lazy.spawn("/home/benny/scripts/mpc_toggle.sh toggle"),
-    ),
-    Key(
-        [],
         "XF86AudioNext",
         lazy.spawn("/home/benny/scripts/mpc_toggle.sh next"),
     ),
