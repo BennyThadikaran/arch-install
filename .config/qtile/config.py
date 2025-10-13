@@ -187,7 +187,7 @@ extension_defaults = widget_defaults.copy()
 # Bar and Widgets
 def init_widgets_list():
     return [
-        widget.CurrentLayout(mode="icon"),
+        widget.CurrentLayout(mode="icon", custom_icon_paths=["~/.config/qtile/icons/"]),
         widget.GroupBox(
             highlight_method="line",
             active="#f8f8f2",
