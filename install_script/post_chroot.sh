@@ -87,7 +87,8 @@ sudo usermod -aG audio $USER
 
 echo "Enabling bluetooth, ly, networkmanager, and cron"
 systemctl enable bluetooth.service
-systemctl enable ly.service
+systemctl enable ly@tty1.service
+systemctl disable getty@tty1.service
 systemctl enable NetworkManager.service
 systemctl enable fcron
 
